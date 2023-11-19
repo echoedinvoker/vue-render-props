@@ -1,26 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>Render Props Demo</h1>
+    <div className="col-2">
+      <TheList title="Products" :items="products">
+        <template #default="{ isOpen, displayItems }">
+          <ul className="list" v-if="isOpen">
+            <ProductItem v-for="product in displayItems" :key="product.productName" :product="product" />
+          </ul>
+        </template>
+      </TheList>
+    </div>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { ref } from 'vue';
+import TheList from './TheList.vue';
+import { products as productsData } from './data';
+import ProductItem from './ProductItem.vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const products = ref(productsData)
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
